@@ -1,0 +1,6 @@
+{
+    "liveServer.settings.ignoreFiles": [
+        "node_modules/**",
+        "db/**"
+    ]
+}
