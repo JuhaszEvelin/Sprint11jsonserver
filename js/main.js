@@ -123,7 +123,9 @@ function createBtnGroup() {
 function delRow(btn) {
     let tr = btn.parentElement.parentElement.parentElement;
     //így már meg van az egész sor de nekem csak a sorszám kell ami az ID
-    let id = tr.querySelector("td:first-child").innerHTML;
+    //let id = tr.querySelector("td:first-child").innerHTML;
+    let data = getRowData(tr);
+    //let id = tr.querySelector("td:first-child").querySelector("input").value;
     //így logolva kiírja az IDket, jöhet a fetch
     let fetchOptions = {
         method: "DELETE",
@@ -132,14 +134,12 @@ function delRow(btn) {
     };
 
     //elindítom a fetchet a szerverre -> linket template stringként írom hog y a végére betegye az IDt
-    fetch(`http://localhost:3000/users/${id}`, fetchOptions).then(
+    fetch(`http://localhost:3000/users/${data.id}`, fetchOptions).then(
         resp => resp.json(),
         err => console.error(err)
     ).then(
-        data => {
-            startGetUsers();
-        }
-    );
+        data => startGetUsers()
+        );
 }
 
 //létrehozok egy első sort a táblázat tejejére amibe bel elehet vinni új adatokat
@@ -210,7 +210,7 @@ function setRow(btn) {
         mode: "cors",
         cache: "no-cache",
         headers: {
-            "Content-Type": "applcation/json"
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     };
